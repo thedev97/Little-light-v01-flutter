@@ -1,4 +1,4 @@
-# little_light_v01
+# little_light_charity_app
 
 Charity, Donation application..
 
