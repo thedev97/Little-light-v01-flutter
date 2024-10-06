@@ -10,20 +10,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        appBar: LLCAppBar(),
+        appBar: const LLCAppBar(),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleSection(),
-              SizedBox(height: 20),
-              DonationPocketCard(),
-              SizedBox(height: 20),
-              CategoriesList(),
-              SizedBox(height: 20),
+              const TitleSection(),
+              const SizedBox(height: 20),
+              const DonationPocketCard(),
+              const SizedBox(height: 20),
+              const CategoriesList(),
+              const SizedBox(height: 20),
               UrgentFundraisingList(),
             ],
           ),

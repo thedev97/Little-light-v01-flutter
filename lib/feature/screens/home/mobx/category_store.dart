@@ -2,9 +2,9 @@ import 'package:mobx/mobx.dart';
 
 part 'category_store.g.dart';
 
-class CategoryStore = _CategoryStore with _$CategoryStore;
+class CategoryStore = CategoryStoreBase with _$CategoryStore;
 
-abstract class _CategoryStore with Store {
+abstract class CategoryStoreBase with Store {
   @observable
   int selectedIndex = -1;
 
