@@ -6,7 +6,7 @@ class CategoryStore = CategoryStoreBase with _$CategoryStore;
 
 abstract class CategoryStoreBase with Store {
   @observable
-  int selectedIndex = -1;
+  int selectedIndex = 0;
 
   @action
   void selectCategory(int index) {

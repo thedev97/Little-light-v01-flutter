@@ -1,123 +1,138 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../../../core/widgets/custom_widget.dart';
+import '../mobx/bookmark_store.dart';
 
-class BookmarkScreen extends StatefulWidget {
-  const BookmarkScreen({super.key});
+class BookmarkScreen extends StatelessWidget {
+  final BookmarkStore bookmarkStore = BookmarkStore();
 
-  @override
-  BookmarkScreenState createState() => BookmarkScreenState();
-}
-
-class  extends State<BookmarkScreen>
-    with SingleTickerProviderStateMixin {
-
-  final List<Map<String, String>> bookmarks = [
-    {'title': 'Support Education for Gaza', 'description': 'Help us raise funds for Gaza!'},
-    {'title': 'Support Health Initiatives', 'description': 'Donate for health campaigns'},
-    {'title': 'Help Build Homes', 'description': 'Help us build homes for families in need'}
-  ];
-
-  late AnimationController _controller;
-  late Animation<Offset> _slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: const Offset(0.0, 0.0),
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-  
-  void showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 1),
-      ),
-    );
-  }
+  BookmarkScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Bookmarks', style: GoogleFonts.girassol(fontSize: 24)),
+          title: Text('Bookmark', style: GoogleFonts.girassol(fontSize: 24)),
         ),
-        body: ListView.builder(
-          itemCount: bookmarks.length,
-          itemBuilder: (context, index) {
-            final bookmark = bookmarks[index];
-            return SlideTransition(
-              position: _slideAnimation,
-              child: Card(
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        bookmark['title']!,
-                        style: GoogleFonts.girassol(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+        body: Observer(
+          builder: (_) => ListView.builder(
+            itemCount: bookmarkStore.bookmarks.length,
+            itemBuilder: (context, index) {
+              final bookmark = bookmarkStore.bookmarks[index];
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFfef6e9).withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.black),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          bookmark['image']!,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        bookmark['description']!,
-                        style: GoogleFonts.girassol(fontSize: 16),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          // Save button
-                          IconButton(
-                            icon: const Icon(Icons.bookmark_add_outlined),
-                            onPressed: () {
-                              showSnackBar(context, 'Post saved!');
-                            },
+                    ),
+                    Positioned.fill(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: -5.0, sigmaY: 0.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          const SizedBox(width: 10),
-                          // Delete button
-                          IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.red),
-                            onPressed: () {
-                              setState(() {
-                                bookmarks.removeAt(index);
-                              });
-                              showSnackBar(context, 'Post deleted!');
-                            },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            bookmark['title']!,
+                            style: GoogleFonts.girassol(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            bookmark['description']!,
+                            style: GoogleFonts.girassol(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              _buildButton(
+                                  icon: Icons.bookmark,
+                                  onPressed: () =>
+                                      showSnackBar(context, 'Post saved!')),
+                              const SizedBox(width: 10),
+                              _buildButton(
+                                icon: Icons.delete,
+                                onPressed: () {
+                                  bookmarkStore.removeBookmark(index);
+                                  showSnackBar(context, 'Post deleted!');
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildButton(
+      {required IconData icon, required VoidCallback onPressed}) {
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        padding: const EdgeInsets.all(5.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.black38),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: Colors.black),
       ),
     );
   }

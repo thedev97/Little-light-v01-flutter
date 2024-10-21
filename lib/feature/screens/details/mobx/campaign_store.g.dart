@@ -73,8 +73,35 @@ mixin _$CampaignStore on CampaignStoreBase, Store {
     });
   }
 
+  late final _$selectedIndexAtom =
+      Atom(name: 'CampaignStoreBase.selectedIndex', context: context);
+
+  @override
+  int get selectedIndex {
+    _$selectedIndexAtom.reportRead();
+    return super.selectedIndex;
+  }
+
+  @override
+  set selectedIndex(int value) {
+    _$selectedIndexAtom.reportWrite(value, super.selectedIndex, () {
+      super.selectedIndex = value;
+    });
+  }
+
   late final _$CampaignStoreBaseActionController =
       ActionController(name: 'CampaignStoreBase', context: context);
+
+  @override
+  void selectCategory(int index) {
+    final _$actionInfo = _$CampaignStoreBaseActionController.startAction(
+        name: 'CampaignStoreBase.selectCategory');
+    try {
+      return super.selectCategory(index);
+    } finally {
+      _$CampaignStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void updateProgress(double value) {
@@ -104,7 +131,8 @@ mixin _$CampaignStore on CampaignStoreBase, Store {
 progress: ${progress},
 raisedSoFar: ${raisedSoFar},
 daysLeft: ${daysLeft},
-isExpanded: ${isExpanded}
+isExpanded: ${isExpanded},
+selectedIndex: ${selectedIndex}
     ''';
   }
 }

@@ -33,10 +33,10 @@ class CustomProgressBarState extends State<CustomProgressBar> {
           borderColor: Colors.black,
           borderWidth: 2.0,
         ),
-        activeTrackColor: Colors.teal,
+        activeTrackColor:  const Color(0xFF88bebe),
         inactiveTrackColor: Colors.grey[300],
-        thumbColor: Colors.teal,
-        overlayColor: Colors.teal.withOpacity(0.2),
+        thumbColor: const Color(0xFF88bebe),
+        overlayColor:const Color(0xFF88bebe).withOpacity(0.2),
       ),
       child: Slider(
         value: widget.store.progressValue,

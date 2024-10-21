@@ -4,6 +4,8 @@ import 'package:little_light_v01/core/constants/image_constants.dart';
 import 'package:little_light_v01/core/widgets/custom_progress_bar.dart';
 import 'package:little_light_v01/core/widgets/mobx/progress_store.dart';
 
+import '../../details/ux/details.dart';
+
 class UrgentFundraisingList extends StatelessWidget {
   final ProgressStore store1 = ProgressStore();
   final ProgressStore store2 = ProgressStore();
@@ -17,16 +19,22 @@ class UrgentFundraisingList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Urgent Fundraising',
-          style: GoogleFonts.girassol(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Urgent Fundraising',
+              style: GoogleFonts.girassol(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Icon(Icons.more_horiz, color: Color(0XFF898989),)
+          ],
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: screenHeight * 0.28,
+          height: screenHeight * 0.29,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -86,109 +94,130 @@ class FundraisingCard extends StatelessWidget {
     store.updateProgress(progress);
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
-      child: Container(
-        width: screenHeight * 0.28,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.black38),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 5,
-              offset: const Offset(1, 1),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CampaignDetailsScreen(
+                campaignTitle: title,
+                organization: organization,
+                target: target,
+                imagePath: imagePath,
+                raisedSoFar: (progress *
+                    double.parse(
+                        target.replaceAll('\$', '').replaceAll(',', ''))),
+              ),
             ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(15)),
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        imagePath,
-                        height: 120,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                      Positioned(
-                        right: 8,
-                        top: 8,
-                        child:
-                        _buildSaveButton(
-                          icon: Icons.bookmark,
-                          onPressed: () => debugPrint('Save'),
+          );
+        },
+        child: Container(
+          width: screenHeight * 0.3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.black38),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 5,
+                offset: const Offset(1, 1),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(15)),
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          imagePath,
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
-                        /*IconButton(
-                          icon: const Icon(Icons.bookmark_border),
-                          color: Colors.white,
-                          onPressed: () => debugPrint('Save'),
-                        ),*/
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    title,
-                    style: GoogleFonts.girassol(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
+                        Positioned(
+                          right: 8,
+                          top: 8,
+                          child: _buildSaveButton(
+                            icon: Icons.bookmark,
+                            onPressed: () => debugPrint('Save'),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    organization,
-                    style: GoogleFonts.girassol(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black45,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 2, left: 8, right: 8),
+                    child: Text(
+                      title,
+                      style: GoogleFonts.girassol(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                  child: CustomProgressBar(store: store),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Target $target',
-                        style: GoogleFonts.girassol(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          LLCImageConstant.check,
+                          height: 16,
+                          width: 16,
+                          color: const Color(0xFF8ea25b),
                         ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '${(progress * 100).toStringAsFixed(0)}%',
-                        style: GoogleFonts.girassol(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                        const SizedBox(width: 4),
+                        Text(
+                          organization,
+                          style: GoogleFonts.girassol(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
+                    child: CustomProgressBar(store: store),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Target $target',
+                          style: GoogleFonts.girassol(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${(progress * 100).toStringAsFixed(0)}%',
+                          style: GoogleFonts.girassol(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0XFF9ebebb),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -213,7 +242,7 @@ class FundraisingCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(icon, color: const Color(0xFFB2D659)),
+        child: Icon(icon, color: const Color(0XFFb8c6a5)),
       ),
     );
   }

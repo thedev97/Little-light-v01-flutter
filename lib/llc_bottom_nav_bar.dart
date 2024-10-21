@@ -11,7 +11,7 @@ class LLCBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 8, bottom: 20, left: 20, right: 20),
       child: Container(
         decoration: BoxDecoration(
             color: Colors.transparent,
@@ -20,7 +20,7 @@ class LLCBottomNavBar extends StatelessWidget {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(15.0)),
           child: BottomAppBar(
-            color: const Color(0xFF6bbec2),
+            color: const Color(0xFF6dbdc4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -72,7 +72,7 @@ class LLCBottomNavBar extends StatelessWidget {
       onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
-            color: isActive ? const Color(0xFFB2D659) : Colors.transparent,
+            color: isActive ? const Color(0xFFb1d774) : Colors.transparent,
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
                 color: isActive ? Colors.black38 : Colors.transparent)),

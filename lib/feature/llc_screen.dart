@@ -4,22 +4,22 @@ import 'package:little_light_v01/llc_bottom_nav_bar.dart';
 import 'package:little_light_v01/feature/screens/home/home.dart';
 import 'package:little_light_v01/feature/screens/mail.dart';
 import 'package:little_light_v01/feature/screens/profile.dart';
-import 'package:little_light_v01/feature/screens/explore.dart';
-import 'package:little_light_v01/feature/screens/bookmark.dart';
+import 'package:little_light_v01/feature/screens/explore/ux/explore.dart';
+import 'package:little_light_v01/feature/screens/bookmark/ux/bookmark.dart';
 import 'package:little_light_v01/store/bottom_nav_store.dart';
 
 final bottomNavStore = BottomNavStore();
 
 class LLCScreen extends StatelessWidget {
-  final List<Widget> _pages = const [
-    HomeScreen(),
-    ExploreScreen(),
+  final List<Widget> _pages =  [
+    const HomeScreen(),
+    const ExploreScreen(),
     BookmarkScreen(),
-    MailScreen(),
-    ProfileScreen(),
+    const MailScreen(),
+    const ProfileScreen(),
   ];
 
-  const LLCScreen({super.key});
+  LLCScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
