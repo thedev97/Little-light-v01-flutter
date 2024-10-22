@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:little_light_v01/llc_bottom_nav_bar.dart';
-import 'package:little_light_v01/feature/screens/home/home.dart';
-import 'package:little_light_v01/feature/screens/mail.dart';
-import 'package:little_light_v01/feature/screens/profile.dart';
+import 'package:little_light_v01/feature/screens/home/ux/home.dart';
+import 'package:little_light_v01/feature/screens/mail/ux/mail.dart';
+import 'package:little_light_v01/feature/screens/profile/ux/profile.dart';
 import 'package:little_light_v01/feature/screens/explore/ux/explore.dart';
 import 'package:little_light_v01/feature/screens/bookmark/ux/bookmark.dart';
 import 'package:little_light_v01/store/bottom_nav_store.dart';

@@ -14,8 +14,8 @@ class CampaignDetailsScreen extends StatelessWidget {
   final String target;
   final String imagePath;
   final double raisedSoFar;
-  final CampaignStore campaignStore = CampaignStore();
-  final ProgressStore store = ProgressStore();
+  final CampaignStore _campaignStore = CampaignStore();
+  final ProgressStore _store = ProgressStore();
   final String _campaign =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. "
       "Praesent facilisis diam sit amet massa convallis, a condimentum nunc vehicula. "
@@ -35,7 +35,7 @@ class CampaignDetailsScreen extends StatelessWidget {
     final double targetValue =
         double.parse(target.replaceAll('\$', '').replaceAll(',', ''));
     double progress = raisedSoFar / targetValue;
-    store.updateProgress(progress);
+    _store.updateProgress(progress);
   }
 
   @override
@@ -107,7 +107,7 @@ class CampaignDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          '${campaignStore.daysLeft} days left',
+                          '${_campaignStore.daysLeft} days left',
                           style: GoogleFonts.girassol(
                             fontSize: 14,
                             color: Colors.black45,
@@ -116,7 +116,7 @@ class CampaignDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    CustomProgressBar(store: store),
+                    CustomProgressBar(store: _store),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,7 +154,7 @@ class CampaignDetailsScreen extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    ' (${(store.progressValue * 100).toStringAsFixed(0)}%)',
+                                    ' (${(_store.progressValue * 100).toStringAsFixed(0)}%)',
                                 style: GoogleFonts.girassol(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -196,40 +196,40 @@ class CampaignDetailsScreen extends StatelessWidget {
                             builder: (_) => CampaignDetailsCategoryItem(
                               title: 'Gaza',
                               icon: Icons.location_on_rounded,
-                              isSelected: campaignStore.selectedIndex == 0,
-                              onTap: () => campaignStore.selectCategory(0),
+                              isSelected: _campaignStore.selectedIndex == 0,
+                              onTap: () => _campaignStore.selectCategory(0),
                             ),
                           ),
                           Observer(
                             builder: (_) => CampaignDetailsCategoryItem(
                               title: 'Kids',
                               icon: Icons.people_alt_rounded,
-                              isSelected: campaignStore.selectedIndex == 1,
-                              onTap: () => campaignStore.selectCategory(1),
+                              isSelected: _campaignStore.selectedIndex == 1,
+                              onTap: () => _campaignStore.selectCategory(1),
                             ),
                           ),
                           Observer(
                             builder: (_) => CampaignDetailsCategoryItem(
                               title: 'Education',
                               icon: Icons.school,
-                              isSelected: campaignStore.selectedIndex == 2,
-                              onTap: () => campaignStore.selectCategory(2),
+                              isSelected: _campaignStore.selectedIndex == 2,
+                              onTap: () => _campaignStore.selectCategory(2),
                             ),
                           ),
                           Observer(
                             builder: (_) => CampaignDetailsCategoryItem(
                               title: 'Donation',
                               icon: Icons.volunteer_activism,
-                              isSelected: campaignStore.selectedIndex == 3,
-                              onTap: () => campaignStore.selectCategory(3),
+                              isSelected: _campaignStore.selectedIndex == 3,
+                              onTap: () => _campaignStore.selectCategory(3),
                             ),
                           ),
                           Observer(
                             builder: (_) => CampaignDetailsCategoryItem(
                               title: 'Medical',
                               icon: Icons.local_hospital,
-                              isSelected: campaignStore.selectedIndex == 3,
-                              onTap: () => campaignStore.selectCategory(3),
+                              isSelected: _campaignStore.selectedIndex == 3,
+                              onTap: () => _campaignStore.selectCategory(3),
                             ),
                           ),
                         ],
@@ -290,7 +290,7 @@ class CampaignDetailsScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          campaignStore.isExpanded
+          _campaignStore.isExpanded
               ? desc
               : '${desc.substring(0, textLimit)}...',
           style: GoogleFonts.girassol(
@@ -300,9 +300,9 @@ class CampaignDetailsScreen extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => campaignStore.toggleReadMore(),
+          onTap: () => _campaignStore.toggleReadMore(),
           child: Text(
-            campaignStore.isExpanded ? 'Read Less' : 'Read More',
+            _campaignStore.isExpanded ? 'Read Less' : 'Read More',
             style: GoogleFonts.girassol(
               fontSize: 14,
               fontWeight: FontWeight.w800,

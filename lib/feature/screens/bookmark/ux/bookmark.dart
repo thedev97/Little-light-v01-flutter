@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../core/widgets/custom_widget.dart';
 import '../mobx/bookmark_store.dart';
+import '../widgets/button.dart';
 
 class BookmarkScreen extends StatelessWidget {
-  final BookmarkStore bookmarkStore = BookmarkStore();
+  final BookmarkStore _bookmarkStore = BookmarkStore();
+  final BookmarkButton _bookmarkButton = BookmarkButton();
 
   BookmarkScreen({super.key});
 
@@ -19,9 +21,9 @@ class BookmarkScreen extends StatelessWidget {
         ),
         body: Observer(
           builder: (_) => ListView.builder(
-            itemCount: bookmarkStore.bookmarks.length,
+            itemCount: _bookmarkStore.bookmarks.length,
             itemBuilder: (context, index) {
-              final bookmark = bookmarkStore.bookmarks[index];
+              final bookmark = _bookmarkStore.bookmarks[index];
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 decoration: BoxDecoration(
@@ -85,15 +87,15 @@ class BookmarkScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              _buildButton(
+                              _bookmarkButton.buildButton(
                                   icon: Icons.bookmark,
                                   onPressed: () =>
                                       showSnackBar(context, 'Post saved!')),
                               const SizedBox(width: 10),
-                              _buildButton(
+                              _bookmarkButton.buildButton(
                                 icon: Icons.delete,
                                 onPressed: () {
-                                  bookmarkStore.removeBookmark(index);
+                                  _bookmarkStore.removeBookmark(index);
                                   showSnackBar(context, 'Post deleted!');
                                 },
                               ),
@@ -108,31 +110,6 @@ class BookmarkScreen extends StatelessWidget {
             },
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildButton(
-      {required IconData icon, required VoidCallback onPressed}) {
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: BorderRadius.circular(30),
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.black38),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Icon(icon, color: Colors.black),
       ),
     );
   }

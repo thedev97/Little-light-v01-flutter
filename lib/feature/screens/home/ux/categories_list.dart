@@ -13,7 +13,7 @@ class CategoriesList extends StatefulWidget {
 }
 
 class CategoriesListState extends State<CategoriesList> {
-  final CategoryStore categoryStore = CategoryStore();
+  final CategoryStore _categoryStore = CategoryStore();
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +43,32 @@ class CategoriesListState extends State<CategoriesList> {
                 builder: (_) => CampaignCategoryItem(
                   title: 'Donation',
                   icon: Icons.volunteer_activism,
-                  isSelected: categoryStore.selectedIndex == 0,
-                  onTap: () => categoryStore.selectCategory(0),
+                  isSelected: _categoryStore.selectedIndex == 0,
+                  onTap: () => _categoryStore.selectCategory(0),
                 ),
               ),
               Observer(
                 builder: (_) => CampaignCategoryItem(
                   title: 'Education',
                   icon: Icons.school,
-                  isSelected: categoryStore.selectedIndex == 1,
-                  onTap: () => categoryStore.selectCategory(1),
+                  isSelected: _categoryStore.selectedIndex == 1,
+                  onTap: () => _categoryStore.selectCategory(1),
                 ),
               ),
               Observer(
                 builder: (_) => CampaignCategoryItem(
                   title: 'Medical',
                   icon: Icons.local_hospital,
-                  isSelected: categoryStore.selectedIndex == 2,
-                  onTap: () => categoryStore.selectCategory(2),
+                  isSelected: _categoryStore.selectedIndex == 2,
+                  onTap: () => _categoryStore.selectCategory(2),
                 ),
               ),
               Observer(
                 builder: (_) => CampaignCategoryItem(
                   title: 'Handicapped',
                   icon: Icons.accessible,
-                  isSelected: categoryStore.selectedIndex == 3,
-                  onTap: () => categoryStore.selectCategory(3),
+                  isSelected: _categoryStore.selectedIndex == 3,
+                  onTap: () => _categoryStore.selectCategory(3),
                 ),
               ),
             ],

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LLCBottomNavBar extends StatelessWidget {
-  final int currentIndex;
+  final int _currentIndex;
   final Function(int) onTabTapped;
 
   const LLCBottomNavBar(
-      {super.key, required this.currentIndex, required this.onTabTapped});
+      {super.key, required int currentIndex, required this.onTabTapped})
+      : _currentIndex = currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -27,31 +28,31 @@ class LLCBottomNavBar extends StatelessWidget {
                 _buildNavItem(
                   label: 'Home',
                   icon: Icons.dashboard,
-                  isActive: currentIndex == 0,
+                  isActive: _currentIndex == 0,
                   onTap: () => onTabTapped(0),
                 ),
                 _buildNavItem(
                   label: 'Explore',
                   icon: Icons.explore,
-                  isActive: currentIndex == 1,
+                  isActive: _currentIndex == 1,
                   onTap: () => onTabTapped(1),
                 ),
                 _buildNavItem(
                   label: 'Bookmark',
                   icon: Icons.bookmark,
-                  isActive: currentIndex == 2,
+                  isActive: _currentIndex == 2,
                   onTap: () => onTabTapped(2),
                 ),
                 _buildNavItem(
                   label: 'Mail',
                   icon: Icons.mail,
-                  isActive: currentIndex == 3,
+                  isActive: _currentIndex == 3,
                   onTap: () => onTabTapped(3),
                 ),
                 _buildNavItem(
                   label: 'Profile',
                   icon: Icons.person,
-                  isActive: currentIndex == 4,
+                  isActive: _currentIndex == 4,
                   onTap: () => onTabTapped(4),
                 ),
               ],

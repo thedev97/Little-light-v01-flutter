@@ -7,9 +7,9 @@ import 'package:little_light_v01/core/widgets/mobx/progress_store.dart';
 import '../../details/ux/details.dart';
 
 class UrgentFundraisingList extends StatelessWidget {
-  final ProgressStore store1 = ProgressStore();
-  final ProgressStore store2 = ProgressStore();
-  final ProgressStore store3 = ProgressStore();
+  final ProgressStore _store1 = ProgressStore();
+  final ProgressStore _store2 = ProgressStore();
+  final ProgressStore _store3 = ProgressStore();
 
   UrgentFundraisingList({super.key});
 
@@ -44,7 +44,7 @@ class UrgentFundraisingList extends StatelessWidget {
                 target: '\$120,000',
                 progress: 0.40,
                 imagePath: LLCImageConstant.charity1,
-                store: store1,
+                store: _store1,
               ),
               FundraisingCard(
                 title: 'Urgent Healthcare Aid',
@@ -52,7 +52,7 @@ class UrgentFundraisingList extends StatelessWidget {
                 target: '\$70,000',
                 progress: 0.60,
                 imagePath: LLCImageConstant.charity2,
-                store: store2,
+                store: _store2,
               ),
               FundraisingCard(
                 title: 'Safe Haven for Kids',
@@ -60,7 +60,7 @@ class UrgentFundraisingList extends StatelessWidget {
                 target: '\$50,000',
                 progress: 0.70,
                 imagePath: LLCImageConstant.charity3,
-                store: store3,
+                store: _store3,
               ),
             ],
           ),
