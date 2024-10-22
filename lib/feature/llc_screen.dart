@@ -15,8 +15,8 @@ class LLCScreen extends StatelessWidget {
     const HomeScreen(),
     const ExploreScreen(),
     BookmarkScreen(),
-    const MailScreen(),
-    const ProfileScreen(),
+    MailScreen(),
+    ProfileScreen(),
   ];
 
   LLCScreen({super.key});

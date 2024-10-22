@@ -266,7 +266,7 @@ class CampaignDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               side: const BorderSide(
                 color: Colors.black,
-                width: 2.0, // Add border
+                width: 2.0,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
