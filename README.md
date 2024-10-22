@@ -6,4 +6,4 @@ Charity, Donation application..
 
 Screenshot
 ----------
-![home](https://github.com/user-attachments/assets/394dac6c-3a58-4741-a331-ffe28ecd64e4)
+![home_1](https://github.com/user-attachments/assets/b89e0f6e-b2a4-4ec6-adfe-5447e7833375)
