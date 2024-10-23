@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: Text('Profile', style: GoogleFonts.girassol(fontSize: 24)),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16,),
           child: Observer(
             builder: (_) => SingleChildScrollView(
               child: Column(
